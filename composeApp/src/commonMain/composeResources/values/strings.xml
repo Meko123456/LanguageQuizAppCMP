@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="greeting_title">"Welcome to Language Quiz!"</string>
+    <string name="greeting_text">"Learn and test your knowledge of languages with fun quizzes. You can start the quiz or explore all the questions!"</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="view_all_questions">View All Questions</string>
+    <string name="question">Question</string>
+    <string name="confirm_answer">Confirm Answer</string>
+    <string name="correct">Correct!</string>
+    <string name="incorrect">Incorrect!</string>
+
+</resources>
