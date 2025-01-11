@@ -7,6 +7,7 @@ data class QuizScreenState(
     val selectedOptionIndex: Int? = null,
     val isAnswerConfirmed: Boolean = false,
     val questionCounter: String = "0/0",
-    val timeRemaining: Int = 0 // In seconds
+    val timeRemaining: String? = null, // In seconds
+    val isCorrect: Boolean? = null,
 )
 

@@ -34,7 +34,7 @@ fun NavGraphBuilder.composableGreetingPage(navController: NavHostController) {
             },
             //todo es shesacvlelia ro yvela shekitxvaze gagiyvanos
             onViewAllQuestionsClicked = {
-                navController.navigate(Route.QuizPage)
+                navController.navigate(Route.AllQuestionsPage)
             }
         )
     }
@@ -44,10 +44,16 @@ fun NavGraphBuilder.composableGreetingPage(navController: NavHostController) {
 fun NavGraphBuilder.composableQuizPage(navController: NavHostController) {
     composable<Route.QuizPage> {
         QuizScreenRoot(
-            onNextQuestion = {},
-            onAnswerConfirmed = {},
             viewModel = QuizViewModel()
         )
+    }
+}
+
+fun NavGraphBuilder.composableAllQuestionsPage(navController: NavHostController) {
+    composable<Route.AllQuestionsPage> {
+
+        //todo aq gvinda questions listis screene
+
     }
 }
 

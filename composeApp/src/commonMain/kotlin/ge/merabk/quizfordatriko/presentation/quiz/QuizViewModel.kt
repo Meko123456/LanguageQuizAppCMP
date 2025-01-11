@@ -1,6 +1,5 @@
 package ge.merabk.quizfordatriko.presentation.quiz
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import ge.merabk.quizfordatriko.data.QuestionsList
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +15,7 @@ class QuizViewModel : ViewModel() {
         QuizScreenState(
             currentQuestion = questions.firstOrNull(),
             questionCounter = "1/${questions.size}",
-            timeRemaining = 30
+            timeRemaining = "30"
         )
     )
     val state: StateFlow<QuizScreenState> = _state.asStateFlow()
@@ -42,32 +41,32 @@ class QuizViewModel : ViewModel() {
     }
 
     fun updateTimeRemaining(seconds: Int) {
-        _state.value = _state.value.copy(timeRemaining = seconds)
+        _state.value = _state.value.copy(timeRemaining = seconds.toString())
     }
 
     fun onAction(action: QuizScreenAction) {
         when (action) {
-            is QuizScreenAction.SelectOption -> {
+            is QuizScreenAction.OnOptionSelected -> {
                 _state.update { currentState ->
                     currentState.copy(selectedOptionIndex = action.index)
                 }
             }
 
-            QuizScreenAction.ConfirmAnswer -> {
+            QuizScreenAction.OnConfirmAnswer -> {
+                val isCorrect =
+                    _state.value.selectedOptionIndex == _state.value.currentQuestion?.correctOption
                 _state.update { currentState ->
-                    currentState.copy(isAnswerConfirmed = true)
+                    currentState.copy(
+                        isAnswerConfirmed = true,
+                        isCorrect = isCorrect
+                    )
                 }
             }
 
-            QuizScreenAction.ProceedToNextQuestion -> {
+            QuizScreenAction.OnNextQuestion -> {
                 moveToNextQuestion()
             }
 
-            is QuizScreenAction.UpdateTimeRemaining -> {
-                _state.update { currentState ->
-                    currentState.copy(timeRemaining = action.seconds)
-                }
-            }
         }
     }
 
@@ -78,9 +77,10 @@ class QuizViewModel : ViewModel() {
                 currentState.copy(
                     currentQuestion = questions[currentQuestionIndex],
                     questionCounter = "${currentQuestionIndex + 1}/${questions.size}",
-                    timeRemaining = 30,
+                    timeRemaining = "30",
                     selectedOptionIndex = null,
-                    isAnswerConfirmed = false
+                    isAnswerConfirmed = false,
+                    isCorrect = null
                 )
             }
         } else {
@@ -88,6 +88,4 @@ class QuizViewModel : ViewModel() {
             // You can also use _state.update to modify a field like `isQuizFinished` if needed.
         }
     }
-
-
 }
